@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 jobs:
   complete-example:
-    uses: clouddrove/github-shared-workflows/.github/workflows/stf-checks.yml@521761c1a5cf68d919980a2ed84b755182aeabfe
+    uses: clouddrove/github-shared-workflows/.github/workflows/security-stf-checks.yml@master
     with:
       working_directory: './examples/complete/'
   
