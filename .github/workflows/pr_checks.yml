@@ -14,4 +14,3 @@ jobs:
     secrets: inherit
     with:
       subjectPattern: '^.+$'
-
