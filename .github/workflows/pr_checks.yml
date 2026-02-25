@@ -10,7 +10,7 @@ on:
 # pr commit check
 jobs:
   pre-validation:
-    if: github.actor != 'dependabot[bot]'
+    # if: github.actor != 'dependabot[bot]'
     uses: clouddrove/github-shared-workflows/.github/workflows/pr_checks.yml@2.0.0 # pinned to latest
     secrets: inherit
     with:
