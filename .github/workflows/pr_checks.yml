@@ -8,7 +8,7 @@ on:
       - reopened
 
 jobs:
-  pr-validation:
+  pre-validation:
     if: github.actor != 'dependabot[bot]'
     uses: clouddrove/github-shared-workflows/.github/workflows/pr-checks.yml@master
     secrets: inherit
