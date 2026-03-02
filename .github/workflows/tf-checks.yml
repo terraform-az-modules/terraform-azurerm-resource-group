@@ -12,6 +12,6 @@ jobs:
   
 # Seperate Job for TFlint workflow call
   tf-lint:
-    uses: clouddrove/github-shared-workflows/.github/workflows/tf-lint.yml@master
+    uses: clouddrove/github-shared-workflows/.github/workflows/tf-lint.yml@2.0.0
     secrets:
       GITHUB: ${{ secrets.GITHUB }}
