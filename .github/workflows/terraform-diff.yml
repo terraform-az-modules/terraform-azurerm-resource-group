@@ -9,7 +9,7 @@ on:
 jobs:
   complete-example:
     if: github.actor != 'dependabot[bot]'
-    uses: clouddrove/github-shared-workflows/.github/workflows/tf-pr-checks.yaml@master
+    uses: clouddrove/github-shared-workflows/.github/workflows/tf-pr-checks.yml@master
     with:
       provider: 'azurerm'
       terraform_directory: 'examples/complete'
