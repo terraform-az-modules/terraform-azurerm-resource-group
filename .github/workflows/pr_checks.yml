@@ -1,4 +1,5 @@
 name: 'PR Validation'
+
 on:
   pull_request_target:
     types:
@@ -9,8 +10,19 @@ on:
 
 jobs:
   pr-validation:
-    if: github.actor != 'dependabot[bot]'
-    uses: clouddrove/github-shared-workflows/.github/workflows/pr_checks.yml@master
+    uses: ayush-cd/github-shared-workflows/.github/workflows/pr-checks.yml@master
     secrets: inherit
     with:
-      subjectPattern: '^.+$'
+      types: |
+        fix
+        feat
+        docs
+        ci
+        chore
+        test
+        refactor
+        style
+        perf
+        build
+        revert
+      checkLabels: true  # Set to false to disable label checking
