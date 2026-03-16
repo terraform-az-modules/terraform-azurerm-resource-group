@@ -1,4 +1,5 @@
 name: 'PR Validation'
+
 on:
   pull_request_target:
     types:
@@ -8,44 +9,20 @@ on:
       - reopened
 
 jobs:
-  validate-title:
-    name: Validate PR title
-    runs-on: ubuntu-latest
-    if: github.actor != 'dependabot[bot]'
-    steps:
-      - name: Validate PR title format
-        run: |
-          TITLE="${{ github.event.pull_request.title }}"
-          echo "PR Title: $TITLE"
-          TYPES="fix|feat|docs|ci|chore|test|refactor|style|perf|build|revert"
-          FULL_REGEX="^(${TYPES})(\([a-zA-Z0-9_-]+\))?:[[:space:]].+$"
-          if [[ ! "$TITLE" =~ $FULL_REGEX ]]; then
-            echo "::error::PR title does not follow Conventional Commit format."
-            echo ""
-            echo "Required format:"
-            echo "  type(scope): subject"
-            echo "  type: subject"
-            echo ""
-            echo "Allowed types: fix, feat, docs, ci, chore, test, refactor, style, perf, build, revert"
-            echo ""
-            echo "Examples:"
-            echo "  feat: add login API"
-            echo "  fix(auth): resolve token issue"
-            echo "  docs(readme): update README"
-            exit 1
-          fi
-          echo "PR title validation passed."
-
-  validate-commits:
-    name: Validate Commit Messages
-    runs-on: ubuntu-latest
-    if: github.actor != 'dependabot[bot]'
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Commitlint Validation
-        uses: wagoid/commitlint-github-action@v6
-        with:
-          configFile: commitlint.config.cjs
+  pr-validation:
+    uses: clouddrove/github-shared-workflows/.github/workflows/pr-checks.yml@2.0.0
+    secrets: inherit
+    with:
+      types: |
+        fix
+        feat
+        docs
+        ci
+        chore
+        test
+        refactor
+        style
+        perf
+        build
+        revert
+      checkLabels: true  # Set to false to disable label checking
