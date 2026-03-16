@@ -1,16 +1,18 @@
 name: 'PR Validation'
 
 on:
-  pull_request_target:
-    types:
-      - opened
-      - edited
-      - synchronize
-      - reopened
+  push:
+    branches: [ fix/workflows ]
+  # pull_request_target:
+  #   types:
+  #     - opened
+  #     - edited
+  #     - synchronize
+  #     - reopened
 
 jobs:
   pr-validation:
-    uses: ayush-cd/github-shared-workflows/.github/workflows/pr-checks.yml@f9d842ab50e9e45696d49c49a1bffb44deb9a454
+    uses: ayush-cd/github-shared-workflows/.github/workflows/pr-checks.yml@master
     secrets: inherit
     with:
       types: "fix,feat,docs,ci,chore,test,refactor,style,perf,build,revert"
