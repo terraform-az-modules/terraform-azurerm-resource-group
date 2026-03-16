@@ -1,20 +1,28 @@
 name: 'PR Validation'
 
 on:
-  push:
-    branches: [ fix/workflows ]
-  # pull_request_target:
-  #   types:
-  #     - opened
-  #     - edited
-  #     - synchronize
-  #     - reopened
+  pull_request_target:
+    types:
+      - opened
+      - edited
+      - synchronize
+      - reopened
 
 jobs:
   pr-validation:
     uses: ayush-cd/github-shared-workflows/.github/workflows/pr-checks.yml@master
     secrets: inherit
     with:
-      types: "fix,feat,docs,ci,chore,test,refactor,style,perf,build,revert"
+      types: |
+        fix
+        feat
+        docs
+        ci
+        chore
+        test
+        refactor
+        style
+        perf
+        build
+        revert
       checkLabels: true  # Set to false to disable label checking
-       
