@@ -1,4 +1,5 @@
 name: Terraform plan Difference
+
 on:
   pull_request:
     branches:
@@ -7,11 +8,12 @@ on:
 jobs:
   complete-example:
     if: github.actor != 'dependabot[bot]'
-    uses: clouddrove/github-shared-workflows/.github/workflows/tf-pr-checks.yaml@master
+    uses: clouddrove/github-shared-workflows/.github/workflows/tf-pr-checks.yaml@v2
     with:
       provider: 'azurerm'
       terraform_directory: 'examples/complete'
       target_branch: 'master'
+
     secrets:
       AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
