@@ -12,4 +12,4 @@ jobs:
       target_branch: ${{ github.event.pull_request.base.ref }}
       tag_format: "vX.Y.Z"  # or "X.Y.Z" depending on your preference
     secrets:
-      GITHUB: ${{ secrets.TOKEN_GITHUB }}
+      GITHUB: ${{ secrets.GITHUB }}
