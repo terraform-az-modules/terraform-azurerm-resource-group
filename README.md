@@ -2,7 +2,7 @@
   <img width="1024" height="250" alt="image" src="https://clouddrove.s3.ca-central-1.amazonaws.com/Logo/banner.png" />
 </p>
 <h1 align="center">
-    Terraform Azure RESOURCE GROUP
+    Terraform Azure Resource Group
 </h1>
 
 <p align="center" style="font-size: 1.2rem;">
