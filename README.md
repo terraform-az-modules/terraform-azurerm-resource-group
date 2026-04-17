@@ -2,7 +2,7 @@
   <img width="1024" height="250" alt="image" src="https://clouddrove.s3.ca-central-1.amazonaws.com/Logo/banner.png" />
 </p>
 <h1 align="center">
-    Terraform Azure Module Template
+    Terraform Azure RESOURCE GROUP
 </h1>
 
 <p align="center" style="font-size: 1.2rem;">
@@ -13,22 +13,19 @@
 <p align="center">
 
 <a href="https://www.terraform.io">
-  <img src="https://img.shields.io/badge/Terraform-v0.13-green" alt="Terraform">
+  <img src="https://img.shields.io/badge/Terraform-v1.6-green" alt="Terraform">
 </a>
 <a href="LICENSE.md">
   <img src="https://img.shields.io/badge/License-APACHE-blue.svg" alt="Licence">
 </a>
-<a href="CHANGELOG.md">
-  <img src="https://img.shields.io/badge/Changelog-blue" alt="Changelog">
-</a>
 
 
 <a href="CHANGELOG.md">
   <img src="https://img.shields.io/badge/Changelog-blue" alt="Changelog">
 </a>
 
-<a href="https://github.com/terraform-az-modules/terraform-module-template/actions/workflows/checkov.yml">
-  <img src="https://github.com/terraform-az-modules/terraform-module-template/actions/workflows/checkov.yml/badge.svg" alt="checkov">
+<a href="https://github.com/terraform-az-modules/terraform-azurerm-resource-group/actions/workflows/checkov.yml">
+  <img src="https://github.com/terraform-az-modules/terraform-azurerm-resource-group/actions/workflows/checkov.yml/badge.svg" alt="checkov">
 </a>
 
 </p>
@@ -46,7 +43,8 @@ This table contains both Prerequisites and Providers:
 
 | Description | Name | Version |
 |-------------|------|---------|
-| Provider | azure | >= 3.116.0 |
+| Prerequisite | Terraform | >= 1.10.0 |
+| Provider | azurerm | >= 4.0 |
 
 ---
 
@@ -56,7 +54,7 @@ This table contains both Prerequisites and Providers:
 
 ## 📦 Examples
 
-> ⚠️ **Important:** Avoid using the `master` branch directly, as it may include unstable changes. Always use stable [release versions](https://github.com/terraform-az-modules/terraform-module-template/releases).
+> ⚠️ **Important:** Avoid using the `master` branch directly, as it may include unstable changes. Always use stable [release versions](https://github.com/terraform-az-modules/terraform-azurerm-resource-group/releases).
 
 Explore real-world usage scenarios and implementation patterns in the [`examples/`](./examples/) directory:
 
@@ -93,8 +91,8 @@ Track module updates, improvements, and breaking changes across versions.
 Big thanks to our contributors for elevating our project with their dedication and expertise! But, we do not wish to stop there, would like to invite contributions from the community in improving these projects and making them more versatile for better reach. Remember, every bit of contribution is immensely valuable, as, together, we are moving in only 1 direction, i.e. forward. 
 
 <div align="center">
-  <a href="https://github.com/terraform-az-modules/terraform-module-template/graphs/contributors" title="Contributors">
-    <img src="https://contrib.rocks/image?repo=terraform-az-modules/terraform-module-template" />
+  <a href="https://github.com/terraform-az-modules/terraform-azurerm-resource-group/graphs/contributors" title="Contributors">
+    <img src="https://contrib.rocks/image?repo=terraform-az-modules/terraform-azurerm-resource-group" />
   </a>
 </div>
 
