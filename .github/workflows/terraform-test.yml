@@ -5,13 +5,10 @@ on:
   push:
     branches:
       - feat/docsreadme
-<<<<<<< HEAD
 
 permissions:
   contents: read
   id-token: write
-=======
->>>>>>> dbb150d42576e99e88afd593d5447495ed892977
 
 jobs:
   terraform-checks:
@@ -31,10 +28,6 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
-<<<<<<< HEAD
-          # NOTE: repo required_version is >= 1.10.0; 1.5.7 will fail init/validate/tests.
-=======
->>>>>>> dbb150d42576e99e88afd593d5447495ed892977
           terraform_version: 1.10.0
 
       - name: Terraform Format Check
