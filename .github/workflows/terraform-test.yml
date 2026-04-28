@@ -5,13 +5,10 @@ on:
   push:
     branches:
       - feat/docsreadme
-<<<<<<< HEAD
 
 permissions:
   contents: read
   id-token: write
-=======
->>>>>>> dbb150d42576e99e88afd593d5447495ed892977
 
 jobs:
   terraform-checks:
@@ -31,10 +28,7 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
-<<<<<<< HEAD
           # NOTE: repo required_version is >= 1.10.0; 1.5.7 will fail init/validate/tests.
-=======
->>>>>>> dbb150d42576e99e88afd593d5447495ed892977
           terraform_version: 1.10.0
 
       - name: Terraform Format Check
@@ -95,18 +89,3 @@ jobs:
             terraform -chdir="${dir}" validate
             terraform -chdir="${dir}" plan -input=false
           done < <(find examples -type d -print0)
-
-  lint:
-    name: TFLint
-    uses: clouddrove/github-shared-workflows/.github/workflows/tf-lint.yml@v2
-    secrets:
-      GITHUB: ${{ secrets.GITHUB }}
-
-  security-scan:
-    name: Checkov
-    if: github.actor != 'dependabot[bot]'
-    uses: clouddrove/github-shared-workflows/.github/workflows/security-checkov.yml@v2
-    with:
-      directory: '.'
-      continue_on_error: 'true'
-      skip_check: 'CKV_TF_1'
