@@ -1,0 +1,53 @@
+name: Terraform Test
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  terraform-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.5.7
+
+      - name: Terraform Format Check
+        run: terraform fmt -check -recursive
+
+      - name: Terraform Init (Root)
+        run: terraform init -backend=false
+
+      - name: Terraform Validate (Root)
+        run: terraform validate
+
+      - name: Run Terraform Native Tests
+        run: terraform test
+
+      - name: Test All Example Configurations
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [ ! -d "examples" ]; then
+            echo "No examples/ directory; skipping."
+            exit 0
+          fi
+
+          while IFS= read -r -d '' dir; do
+            if ! compgen -G "${dir}/*.tf" > /dev/null; then
+              continue
+            fi
+
+            echo "Testing example: ${dir}"
+            terraform -chdir="${dir}" init -backend=false
+            terraform -chdir="${dir}" validate
+            terraform -chdir="${dir}" plan -input=false
+          done < <(find examples -type d -print0)
