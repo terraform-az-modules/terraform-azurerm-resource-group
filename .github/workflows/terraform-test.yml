@@ -4,20 +4,32 @@ on:
   pull_request:
   push:
     branches:
-      - main
+      - feat/docsreadme
+
+permissions:
+  contents: read
+  id-token: write
 
 jobs:
-  terraform-test:
+  terraform-checks:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Azure Login (OIDC)
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: 1.5.7
+          # NOTE: repo required_version is >= 1.10.0; 1.5.7 will fail init/validate/tests.
+          terraform_version: 1.10.0
 
       - name: Terraform Format Check
         run: terraform fmt -check -recursive
@@ -27,6 +39,32 @@ jobs:
 
       - name: Terraform Validate (Root)
         run: terraform validate
+
+      - name: Terraform Plan (Root)
+        run: terraform plan -input=false
+
+  module-tests:
+    runs-on: ubuntu-latest
+    needs: terraform-checks
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Azure Login (OIDC)
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.10.0
+
+      - name: Terraform Init (Root)
+        run: terraform init -backend=false
 
       - name: Run Terraform Native Tests
         run: terraform test
@@ -51,3 +89,18 @@ jobs:
             terraform -chdir="${dir}" validate
             terraform -chdir="${dir}" plan -input=false
           done < <(find examples -type d -print0)
+
+  lint:
+    name: TFLint
+    uses: clouddrove/github-shared-workflows/.github/workflows/tf-lint.yml@v2
+    secrets:
+      GITHUB: ${{ secrets.GITHUB }}
+
+  security-scan:
+    name: Checkov
+    if: github.actor != 'dependabot[bot]'
+    uses: clouddrove/github-shared-workflows/.github/workflows/security-checkov.yml@v2
+    with:
+      directory: '.'
+      continue_on_error: 'true'
+      skip_check: 'CKV_TF_1'
